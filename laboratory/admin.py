@@ -4,9 +4,14 @@ from django.db.models import Count
 from .models import DataType, Instrument, InstrumentType, Laboratory, Manufacturer
 
 
-class InstrumentInline(admin.TabularInline):
+class InstrumentInline(admin.StackedInline):
     model = Instrument
-    extra = 1
+    extra = 0
+
+
+# class InstrumentInline(admin.TabularInline):
+#     model = Instrument
+#     extra = 1
 
 
 @admin.register(Laboratory)
