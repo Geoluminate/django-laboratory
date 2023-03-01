@@ -11,7 +11,7 @@ except ImportError:
 
 
 setup(
-    name="django-literature",
+    name="django-laboratory",
     version="0.1.0",
     description="",
     author="Sam Jennings",
