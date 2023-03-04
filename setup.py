@@ -21,7 +21,6 @@ setup(
         "laboratory",
     ],
     include_package_data=True,
-    install_requires=[],
     license="MIT",
     zip_safe=False,
     keywords="django,laboratory,geoluminate,publications,scientific",
