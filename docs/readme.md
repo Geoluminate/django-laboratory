@@ -13,7 +13,7 @@
 <!-- ![PyPI - Downloads](https://img.shields.io/pypi/dm/django-laboratory) -->
 <!-- ![PyPI - Status](https://img.shields.io/pypi/status/django-laboratory) -->
 
-A Django application for managing collections of scientific instruments
+A scientific laboratory management app for Django
 
 Documentation
 -------------
