@@ -3,7 +3,7 @@ from django.utils.translation import gettext as _
 
 
 class Laboratory(models.Model):
-    __doc__ = _("A collection/laboratory of scientific instruments.")
+    """A collection/laboratory of scientific instruments."""
 
     name = models.CharField(
         max_length=255,
@@ -13,7 +13,8 @@ class Laboratory(models.Model):
     description = models.TextField(
         _("description"),
         help_text=_(
-            "A short description of the laboratory. Try to include information such as the purpose of the laboratory, what data does it collect, where it is located, etc."
+            "A short description of the laboratory. Try to include information such as the purpose of the laboratory,"
+            " what data does it collect, where it is located, etc."
         ),
     )
 
@@ -45,7 +46,7 @@ class Laboratory(models.Model):
 
 
 class Manufacturer(models.Model):
-    __doc__ = _("Stores manufacturers of scientific instruments.")
+    """Stores manufacturers of scientific instruments."""
 
     name = models.CharField(
         max_length=255,
@@ -69,7 +70,7 @@ class Manufacturer(models.Model):
 
 
 class Instrument(models.Model):
-    __doc__ = _("An instrument used for the collection of scientific data.")
+    """An instrument used for the collection of scientific data."""
 
     laboratory = models.ForeignKey(
         "laboratory.Laboratory",
@@ -90,7 +91,7 @@ class Instrument(models.Model):
         ),
     )
 
-    type = models.ForeignKey(
+    type = models.ForeignKey(  # noqa: A003
         "laboratory.InstrumentType",
         verbose_name=_("instrument type"),
         help_text=_("The laboratory to which the instrument belongs."),
@@ -108,7 +109,7 @@ class Instrument(models.Model):
 class InstrumentType(models.Model):
     """Stores specific instrument types for a given manufacturer."""
 
-    type = models.CharField(
+    type = models.CharField(  # noqa: A003
         max_length=255,
         verbose_name=_("instrument type"),
         help_text=_("The type of instrument."),
@@ -156,7 +157,7 @@ class DataType(models.Model):
     """Stores unique data types that are collected by instruments or
     output by laboratories."""
 
-    type = models.CharField(
+    type = models.CharField(  # noqa: A003
         _("data type"),
         max_length=255,
         help_text=_("Specify a type of data."),

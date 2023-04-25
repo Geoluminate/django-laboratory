@@ -42,6 +42,7 @@ def test(c, tox=False):
         print("🚀 Testing code: Running pytest")
         c.run("poetry run pytest --cov --cov-config=pyproject.toml --cov-report=html")
 
+
 @task
 def clean_build(c):
     print("🚀 Removing old build artifacts")
@@ -59,6 +60,7 @@ def clean_pyc(c):
     c.run("find . -name '*.pyc' -exec rm -f {} +")
     c.run("find . -name '*.pyo' -exec rm -f {} +")
     c.run("find . -name '*~' -exec rm -f {} +")
+
 
 @task
 def docs(c):

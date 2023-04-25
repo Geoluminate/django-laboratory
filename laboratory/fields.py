@@ -1,4 +1,4 @@
-"""This module contains fields that you can use in your projects to link 
+"""This module contains fields that you can use in your projects to link
 database entries to a collection (laboratory) of scientific instruments.
 The fields are not special in any way but provide a direct relationship
 to the `laboratory.Laboratory` model.
