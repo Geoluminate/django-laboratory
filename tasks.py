@@ -68,7 +68,6 @@ def docs(c):
     Build the documentation and open it in the browser
     """
     c.run("sphinx-apidoc -M -T -o docs/ laboratory **/migrations/* -e --force -d 2")
-    c.run("sphinx-apidoc -M -T -o docs/ laboratory/api **/migrations/* -e --force -d 2")
     c.run("sphinx-build -E -b html docs docs/_build")
 
 
