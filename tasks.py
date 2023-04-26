@@ -24,7 +24,7 @@ def check(c):
     c.run("poetry run pre-commit run -a")
 
     print("🚀 Static type checking: Running mypy")
-    # c.run("poetry run mypy")
+    c.run("poetry run mypy")
 
     print("🚀 Checking for obsolete dependencies: Running deptry")
     c.run("poetry run deptry .")

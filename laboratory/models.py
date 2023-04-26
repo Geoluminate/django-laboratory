@@ -112,7 +112,6 @@ class Instrument(TimeStampedModel):
 class InstrumentType(TimeStampedModel):
     """Stores specific instrument types for a given manufacturer."""
 
-
     type = models.CharField(  # noqa: A003
         max_length=255,
         verbose_name=_("instrument type"),
