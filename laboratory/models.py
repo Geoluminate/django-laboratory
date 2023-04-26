@@ -1,8 +1,11 @@
+# mypy: ignore-errors
+# an open issue with django-model-utils (https://github.com/jazzband/django-model-utils/issues/558) raises errors due to missing type annotations. Disabling errors for entire file until it's fixed.
 from django.db import models
 from django.utils.translation import gettext as _
+from model_utils.models import TimeStampedModel
 
 
-class Laboratory(models.Model):
+class Laboratory(TimeStampedModel):
     """A collection/laboratory of scientific instruments."""
 
     name = models.CharField(
@@ -45,7 +48,7 @@ class Laboratory(models.Model):
         return f"{self.name}"
 
 
-class Manufacturer(models.Model):
+class Manufacturer(TimeStampedModel):
     """Stores manufacturers of scientific instruments."""
 
     name = models.CharField(
@@ -69,7 +72,7 @@ class Manufacturer(models.Model):
         return f"{self.name}"
 
 
-class Instrument(models.Model):
+class Instrument(TimeStampedModel):
     """An instrument used for the collection of scientific data."""
 
     laboratory = models.ForeignKey(
@@ -106,8 +109,9 @@ class Instrument(models.Model):
         unique_together = ("laboratory", "type", "internal_id")
 
 
-class InstrumentType(models.Model):
+class InstrumentType(TimeStampedModel):
     """Stores specific instrument types for a given manufacturer."""
+
 
     type = models.CharField(  # noqa: A003
         max_length=255,
