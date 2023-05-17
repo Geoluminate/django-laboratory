@@ -44,25 +44,6 @@ def test(c, tox=False):
 
 
 @task
-def clean_build(c):
-    print("🚀 Removing old build artifacts")
-    c.run("rm -fr build/")
-    c.run("rm -fr dist/")
-    c.run("rm -fr *.egg-info")
-
-
-@task
-def clean_pyc(c):
-    """
-    Remove python file artifacts
-    """
-    print("🚀 Removing python file artifacts")
-    c.run("find . -name '*.pyc' -exec rm -f {} +")
-    c.run("find . -name '*.pyo' -exec rm -f {} +")
-    c.run("find . -name '*~' -exec rm -f {} +")
-
-
-@task
 def docs(c):
     """
     Build the documentation and open it in the browser
@@ -72,44 +53,23 @@ def docs(c):
 
 
 @task
-def clean(c):
+def release(c, rule=""):
     """
-    Remove python file and build artifacts
-    """
-    clean_build(c)
-    clean_pyc(c)
+    Create a new git tag and push it to the remote repository.
 
+    .. note::
+        This will create a new tag and push it to the remote repository, which will trigger a new build and deployment of the package to PyPI.
 
-@task
-def publish(c, rule=""):
-    """
-    Publish a new version of the package to PyPI
-    """
-
-    # 1. Set the current version using the specified rule
-    # see https://python-poetry.org/docs/cli/#version for rules on bumping version
-    if rule:
-        c.run(f"poetry version {rule}")
-
-    # 2. Build the source and wheels archive
-    # https://python-poetry.org/docs/cli/#build
-    print("🔧 Building: Creating wheel file.")
-    c.run("poetry build")
-
-    # 3. Dry run first to make sure everything is working
-    print("🚀 Publishing: Dry run.")
-    c.run("poetry publish --dry-run")
-
-    # This command publishes the package, previously built with the build command, to the remote repository. It will automatically register the package before uploading if this is the first time it is submitted.
-    # https://python-poetry.org/docs/cli/#publish
-    print("📦 Publishing to PyPI")
-    c.run("poetry publish")
-
-
-@task
-def tag(c, rule=""):
-    """
-    Create a new git tag and push it to the remote repository
+    RULE	    BEFORE	AFTER
+    major	    1.3.0	2.0.0
+    minor	    2.1.4	2.2.0
+    patch	    4.1.1	4.1.2
+    premajor	1.0.2	2.0.0a0
+    preminor	1.0.2	1.1.0a0
+    prepatch	1.0.2	1.0.3a0
+    prerelease	1.0.2	1.0.3a0
+    prerelease	1.0.3a0	1.0.3a1
+    prerelease	1.0.3b0	1.0.3b1
     """
     if rule:
         # bump the current version using the specified rule
@@ -119,7 +79,10 @@ def tag(c, rule=""):
     version_short = c.run("poetry version -s", hide=True).stdout.strip()
     version = c.run("poetry version", hide=True).stdout.strip()
 
-    # 2. create a tag and push it to the remote repository
+    # 2. commit the changes to pyproject.toml
+    c.run(f'git commit pyproject.toml -m "bump to v{version_short}"')
+
+    # 3. create a tag and push it to the remote repository
     c.run(f'git tag -a v{version_short} -m "{version}"')
     c.run("git push --tags")
     c.run("git push origin main")
